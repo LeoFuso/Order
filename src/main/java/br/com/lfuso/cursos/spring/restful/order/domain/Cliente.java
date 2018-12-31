@@ -1,6 +1,7 @@
 package br.com.lfuso.cursos.spring.restful.order.domain;
 
 import br.com.lfuso.cursos.spring.restful.order.domain.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,7 +28,7 @@ public class Cliente implements Serializable {
 	private String cpfOuCnpj;
 	private TipoCliente tipo;
 
-
+	@JsonManagedReference
 	@OneToMany(mappedBy = "cliente")
 	private Set<Endereco> enderecos = new HashSet<>();
 

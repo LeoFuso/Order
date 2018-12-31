@@ -1,5 +1,6 @@
 package br.com.lfuso.cursos.spring.restful.order.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,6 +24,7 @@ public class Estado implements Serializable {
 	private Integer id;
 	private String nome;
 
+	@JsonManagedReference
 	@OneToMany(mappedBy = "estado")
 	private Set<Cidade> cidades = new HashSet<>();
 

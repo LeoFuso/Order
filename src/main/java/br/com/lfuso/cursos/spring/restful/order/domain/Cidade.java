@@ -1,5 +1,6 @@
 package br.com.lfuso.cursos.spring.restful.order.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +22,7 @@ public class Cidade implements Serializable {
 	private Integer id;
 	private String nome;
 
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "estado_id")
 	private Estado estado;

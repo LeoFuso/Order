@@ -1,7 +1,7 @@
 package br.com.lfuso.cursos.spring.restful.order.resources;
 
-import br.com.lfuso.cursos.spring.restful.order.domain.Categoria;
-import br.com.lfuso.cursos.spring.restful.order.services.CategoriaService;
+import br.com.lfuso.cursos.spring.restful.order.domain.Cliente;
+import br.com.lfuso.cursos.spring.restful.order.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,23 +12,23 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/categorias")
-public class CategoriaResource {
+@RequestMapping(path = "/clientes")
+public class ClienteResource {
 
 	@Autowired
-	private CategoriaService categoriaService;
+	private ClienteService clienteService;
 
 	@RequestMapping(path = {"/", ""}, method = RequestMethod.GET)
-	public ResponseEntity<List<Categoria>> listar() {
+	public ResponseEntity<List<Cliente>> listar() {
 
-		return ResponseEntity.ok(categoriaService.listar());
+		return ResponseEntity.ok(clienteService.listar());
 
 	}
 
 	@RequestMapping(path = {"/{id}", "{id}"}, method = RequestMethod.GET)
-	public ResponseEntity<Categoria> find(@PathVariable Integer id) {
+	public ResponseEntity<Cliente> find(@PathVariable Integer id) {
 
-		Categoria found = categoriaService.buscar(id);
+		Cliente found = clienteService.buscar(id);
 		return ResponseEntity.ok(found);
 
 	}
