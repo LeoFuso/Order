@@ -1,8 +1,12 @@
 package br.com.lfuso.cursos.spring.restful.order;
 
 import br.com.lfuso.cursos.spring.restful.order.domain.Categoria;
+import br.com.lfuso.cursos.spring.restful.order.domain.Cidade;
+import br.com.lfuso.cursos.spring.restful.order.domain.Estado;
 import br.com.lfuso.cursos.spring.restful.order.domain.Produto;
 import br.com.lfuso.cursos.spring.restful.order.repositories.CategoriaRepository;
+import br.com.lfuso.cursos.spring.restful.order.repositories.CidadeRepository;
+import br.com.lfuso.cursos.spring.restful.order.repositories.EstadoRepository;
 import br.com.lfuso.cursos.spring.restful.order.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -19,6 +23,12 @@ public class OrderApplication implements CommandLineRunner {
 
 	@Autowired
 	private ProdutoRepository produtoRepository;
+
+	@Autowired
+	private EstadoRepository estadoRepository;
+
+	@Autowired
+	private CidadeRepository cidadeRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(OrderApplication.class, args);
@@ -43,6 +53,19 @@ public class OrderApplication implements CommandLineRunner {
 
 		categoriaRepository.saveAll(Arrays.asList(informatica, escritorio));
 		produtoRepository.saveAll(Arrays.asList(computador, impressora, mouse));
+
+		Estado minasGerais = new Estado(null, "Minas Gerais");
+		Estado saoPaulo = new Estado(null, "São Paulo");
+
+		Cidade uberlandia = new Cidade(null, "Uberlândia", minasGerais);
+		Cidade sp = new Cidade(null, "São Paulo", saoPaulo);
+		Cidade campinas = new Cidade(null, "Campinas", saoPaulo);
+
+		minasGerais.getCidades().add(uberlandia);
+		saoPaulo.getCidades().addAll(Arrays.asList(sp, campinas));
+
+		estadoRepository.saveAll(Arrays.asList(minasGerais, saoPaulo));
+		cidadeRepository.saveAll(Arrays.asList(uberlandia, sp, campinas));
 	}
 }
 
