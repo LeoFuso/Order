@@ -1,6 +1,7 @@
 package br.com.lfuso.cursos.spring.restful.order;
 
 import br.com.lfuso.cursos.spring.restful.order.domain.*;
+import br.com.lfuso.cursos.spring.restful.order.domain.enums.EstadoPagamento;
 import br.com.lfuso.cursos.spring.restful.order.domain.enums.TipoCliente;
 import br.com.lfuso.cursos.spring.restful.order.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 @SpringBootApplication
@@ -30,6 +32,12 @@ public class OrderApplication implements CommandLineRunner {
 
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
+
+	@Autowired
+	private PedidoRepository pedidoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(OrderApplication.class, args);
@@ -83,6 +91,22 @@ public class OrderApplication implements CommandLineRunner {
 
 		clienteRepository.save(maria);
 		enderecoRepository.saveAll(Arrays.asList(flores, matos));
+
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyy HH:mm");
+
+		Pedido pedido1 = new Pedido(null, format.parse("30/09/2017 10:32"), maria, flores);
+		Pedido pedido2 = new Pedido(null, format.parse("10/10/2017 19:25"), maria, matos);
+
+		Pagamento pagamento1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, pedido1, 6);
+		pedido1.setPagamento(pagamento1);
+
+		Pagamento pagamento2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, pedido2, format.parse("20/10/2017 23:59"), null);
+		pedido2.setPagamento(pagamento2);
+
+		maria.getPedidos().addAll(Arrays.asList(pedido1, pedido2));
+
+		pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2));
+		pagamentoRepository.saveAll(Arrays.asList(pagamento1, pagamento2));
 
 	}
 }
