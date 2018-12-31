@@ -39,6 +39,9 @@ public class OrderApplication implements CommandLineRunner {
 	@Autowired
 	private PedidoRepository pedidoRepository;
 
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(OrderApplication.class, args);
 	}
@@ -108,6 +111,18 @@ public class OrderApplication implements CommandLineRunner {
 		pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2));
 		pagamentoRepository.saveAll(Arrays.asList(pagamento1, pagamento2));
 
+		ItemPedido itemPedido1 = new ItemPedido(pedido1, computador, 0.0, 1, 2000.0);
+		ItemPedido itemPedido2 = new ItemPedido(pedido1, mouse, 0.0, 2, 80.0);
+		ItemPedido itemPedido3 = new ItemPedido(pedido2, impressora, 100.0, 1, 800.0);
+
+		pedido1.getItens().addAll(Arrays.asList(itemPedido1, itemPedido2));
+		pedido2.getItens().add(itemPedido3);
+
+		computador.getItens().add(itemPedido1);
+		impressora.getItens().add(itemPedido3);
+		mouse.getItens().add(itemPedido2);
+
+		itemPedidoRepository.saveAll(Arrays.asList(itemPedido1, itemPedido2, itemPedido3));
 	}
 }
 

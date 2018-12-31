@@ -8,8 +8,10 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -32,6 +34,15 @@ public class Produto implements Serializable {
 			inverseJoinColumns = @JoinColumn(name = "categoria_id")
 	)
 	private Set<Categoria> categorias = new HashSet<>();
+
+	@OneToMany(mappedBy = "id.produto")
+	private Set<ItemPedido> itens = new HashSet<>();
+
+	public List<Pedido> getPedidos(){
+		return this.itens.stream()
+				.map(ItemPedido::getPedido)
+				.collect(Collectors.toList());
+	}
 
 	public Produto(Integer id, String nome, double preco) {
 		this.id = id;
