@@ -1,13 +1,8 @@
 package br.com.lfuso.cursos.spring.restful.order;
 
-import br.com.lfuso.cursos.spring.restful.order.domain.Categoria;
-import br.com.lfuso.cursos.spring.restful.order.domain.Cidade;
-import br.com.lfuso.cursos.spring.restful.order.domain.Estado;
-import br.com.lfuso.cursos.spring.restful.order.domain.Produto;
-import br.com.lfuso.cursos.spring.restful.order.repositories.CategoriaRepository;
-import br.com.lfuso.cursos.spring.restful.order.repositories.CidadeRepository;
-import br.com.lfuso.cursos.spring.restful.order.repositories.EstadoRepository;
-import br.com.lfuso.cursos.spring.restful.order.repositories.ProdutoRepository;
+import br.com.lfuso.cursos.spring.restful.order.domain.*;
+import br.com.lfuso.cursos.spring.restful.order.domain.enums.TipoCliente;
+import br.com.lfuso.cursos.spring.restful.order.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -29,6 +24,12 @@ public class OrderApplication implements CommandLineRunner {
 
 	@Autowired
 	private CidadeRepository cidadeRepository;
+
+	@Autowired
+	private ClienteRepository clienteRepository;
+
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(OrderApplication.class, args);
@@ -66,6 +67,23 @@ public class OrderApplication implements CommandLineRunner {
 
 		estadoRepository.saveAll(Arrays.asList(minasGerais, saoPaulo));
 		cidadeRepository.saveAll(Arrays.asList(uberlandia, sp, campinas));
+
+		Cliente maria = new Cliente
+				(null, "Maria Silva", "maria@gmail.com", "39378912377", TipoCliente.PESSOA_FISICA);
+
+		maria.getTelefones().addAll(Arrays.asList("27363223", "98838393"));
+
+		Endereco flores = new Endereco
+				(null, "Rua Flores", "300", "Apto 203", "Jardim", "38220634", maria, uberlandia);
+
+		Endereco matos = new Endereco
+				(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", maria, sp);
+
+		maria.getEnderecos().addAll(Arrays.asList(flores, matos));
+
+		clienteRepository.save(maria);
+		enderecoRepository.saveAll(Arrays.asList(flores, matos));
+
 	}
 }
 
