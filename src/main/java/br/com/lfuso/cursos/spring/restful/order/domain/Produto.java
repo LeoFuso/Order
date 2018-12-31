@@ -14,29 +14,35 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Categoria implements Serializable {
+public class Produto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
 	private String nome;
+	private double preco;
 
-	@ManyToMany(mappedBy = "categorias")
-	private Set<Produto> produtos = new HashSet<>();
+	@ManyToMany
+	@JoinTable(name = "PRODUTO_CATEGORIA",
+			joinColumns = @JoinColumn(name = "produto_id"),
+			inverseJoinColumns = @JoinColumn(name = "categoria_id")
+	)
+	private Set<Categoria> categorias = new HashSet<>();
 
-	public Categoria(Integer id, String nome) {
+	public Produto(Integer id, String nome, double preco) {
+		this.id = id;
 		this.nome = nome;
+		this.preco = preco;
 	}
 
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-		Categoria categoria = (Categoria) o;
-		return Objects.equals(getId(), categoria.getId());
+		Produto produto = (Produto) o;
+		return Objects.equals(getId(), produto.getId());
 	}
 
 	@Override
