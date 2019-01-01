@@ -1,6 +1,5 @@
 package br.com.lfuso.cursos.spring.restful.order.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,7 +27,7 @@ public class Produto implements Serializable {
 	private String nome;
 	private double preco;
 
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "PRODUTO_CATEGORIA",
 			joinColumns = @JoinColumn(name = "produto_id"),
@@ -41,7 +40,7 @@ public class Produto implements Serializable {
 	private Set<ItemPedido> itens = new HashSet<>();
 
 	@JsonIgnore
-	public List<Pedido> getPedidos(){
+	public List<Pedido> getPedidos() {
 		return this.itens.stream()
 				.map(ItemPedido::getPedido)
 				.collect(Collectors.toList());

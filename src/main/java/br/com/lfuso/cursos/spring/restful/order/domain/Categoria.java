@@ -1,6 +1,5 @@
 package br.com.lfuso.cursos.spring.restful.order.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,7 +24,6 @@ public class Categoria implements Serializable {
 
 	private String nome;
 
-	@JsonManagedReference
 	@ManyToMany(mappedBy = "categorias")
 	private Set<Produto> produtos = new HashSet<>();
 
