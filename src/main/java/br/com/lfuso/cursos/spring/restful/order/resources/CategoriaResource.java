@@ -42,8 +42,7 @@ public class CategoriaResource {
 				.buildAndExpand(categoria.getId())
 				.toUri();
 
-		return ResponseEntity.created(uri)
-				.build();
+		return ResponseEntity.created(uri).build();
 	}
 
 	@RequestMapping(path = {"/{id}", "{id}"}, method = RequestMethod.PUT)
@@ -53,6 +52,14 @@ public class CategoriaResource {
 		categoriaService.update(categoria);
 
 		return ResponseEntity.noContent().build();
+	}
+
+	@RequestMapping(path = {"/{id}", "{id}"}, method = RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+
+		categoriaService.delete(id);
+		return ResponseEntity.noContent().build();
+
 	}
 
 }

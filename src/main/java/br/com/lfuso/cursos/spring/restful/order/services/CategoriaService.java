@@ -33,4 +33,9 @@ public class CategoriaService {
 		this.find(categoria.getId());
 		repository.save(categoria);
 	}
+
+	public void delete(Integer id) {
+		this.find(id);
+		repository.deleteById(id);
+	}
 }
