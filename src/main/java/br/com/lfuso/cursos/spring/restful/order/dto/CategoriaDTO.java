@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Getter
@@ -15,6 +17,9 @@ import java.io.Serializable;
 public class CategoriaDTO implements Serializable {
 
 	private Integer id;
+
+	@NotEmpty(message = "Preenchimento obrigatório")
+	@Size(min = 5, max = 80, message = "Nome deve conter apenas [ 5; 80] caracteres")
 	private String nome;
 
 	public static CategoriaDTO ofCategoria(Categoria categoria) {
