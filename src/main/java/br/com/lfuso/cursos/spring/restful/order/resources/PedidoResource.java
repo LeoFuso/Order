@@ -16,19 +16,19 @@ import java.util.List;
 public class PedidoResource {
 
 	@Autowired
-	private PedidoService PedidoService;
+	private PedidoService pedidoService;
 
 	@RequestMapping(path = {"/", ""}, method = RequestMethod.GET)
 	public ResponseEntity<List<Pedido>> findAll() {
 
-		return ResponseEntity.ok(PedidoService.findAll());
+		return ResponseEntity.ok(pedidoService.findAll());
 
 	}
 
 	@RequestMapping(path = {"/{id}", "{id}"}, method = RequestMethod.GET)
 	public ResponseEntity<Pedido> find(@PathVariable Integer id) {
 
-		Pedido found = PedidoService.find(id);
+		Pedido found = pedidoService.find(id);
 		return ResponseEntity.ok(found);
 
 	}
