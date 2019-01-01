@@ -14,13 +14,13 @@ public class PedidoService {
 	@Autowired
 	private PedidoRepository repository;
 
-	public Pedido buscar(Integer toFind) {
+	public Pedido find(Integer toFind) {
 		return repository.findById(toFind)
 				.orElseThrow(() -> new ObjectNotFoundException
 						("Objeto " + Pedido.class.getSimpleName() + " não encontrado com id [ " + toFind + " ]"));
 	}
 
-	public List<Pedido> listar() {
+	public List<Pedido> findAll() {
 		return repository.findAll();
 	}
 }

@@ -20,20 +20,20 @@ public class CategoriaResource {
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<Categoria>> listar() {
 
-		return ResponseEntity.ok(categoriaService.listar());
+		return ResponseEntity.ok(categoriaService.findAll());
 
 	}
 
 	@RequestMapping(path = {"/{id}", "{id}"}, method = RequestMethod.GET)
 	public ResponseEntity<Categoria> find(@PathVariable Integer id) {
 
-		Categoria found = categoriaService.buscar(id);
+		Categoria found = categoriaService.find(id);
 		return ResponseEntity.ok(found);
 
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody Categoria categoria) {
+	public ResponseEntity<Void> save(@RequestBody Categoria categoria) {
 
 		categoria = categoriaService.insert(categoria);
 
@@ -44,6 +44,15 @@ public class CategoriaResource {
 
 		return ResponseEntity.created(uri)
 				.build();
+	}
+
+	@RequestMapping(path = {"/{id}", "{id}"}, method = RequestMethod.PUT)
+	public ResponseEntity<Void> save(@PathVariable Integer id, @RequestBody Categoria categoria) {
+
+		categoria.setId(id);
+		categoriaService.update(categoria);
+
+		return ResponseEntity.noContent().build();
 	}
 
 }

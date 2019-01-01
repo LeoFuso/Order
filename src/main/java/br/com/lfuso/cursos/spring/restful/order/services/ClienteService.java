@@ -14,13 +14,13 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository repository;
 
-	public Cliente buscar(Integer toFind) {
+	public Cliente find(Integer toFind) {
 		return repository.findById(toFind)
 				.orElseThrow(() -> new ObjectNotFoundException
 						("Objeto " + Cliente.class.getSimpleName() + " não encontrado com id [ " + toFind + " ]"));
 	}
 
-	public List<Cliente> listar() {
+	public List<Cliente> findAll() {
 		return repository.findAll();
 	}
 }
