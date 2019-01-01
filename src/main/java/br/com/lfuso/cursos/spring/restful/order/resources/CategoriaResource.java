@@ -1,6 +1,7 @@
 package br.com.lfuso.cursos.spring.restful.order.resources;
 
 import br.com.lfuso.cursos.spring.restful.order.domain.Categoria;
+import br.com.lfuso.cursos.spring.restful.order.dto.CategoriaDTO;
 import br.com.lfuso.cursos.spring.restful.order.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/categorias")
@@ -18,9 +20,14 @@ public class CategoriaResource {
 	private CategoriaService categoriaService;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Categoria>> listar() {
+	public ResponseEntity<List<CategoriaDTO>> findAll() {
 
-		return ResponseEntity.ok(categoriaService.findAll());
+		List<CategoriaDTO> categorias = categoriaService.findAll()
+				.stream()
+				.map(CategoriaDTO::ofCategoria)
+				.collect(Collectors.toList());
+
+		return ResponseEntity.ok(categorias);
 
 	}
 
