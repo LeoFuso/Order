@@ -60,7 +60,7 @@ public class OrderApplication implements CommandLineRunner {
 		escritorio.getProdutos().add(impressora);
 
 		computador.getCategorias().add(informatica);
-		impressora.getCategorias().addAll(Arrays.asList(informatica, escritorio));
+		impressora.getCategorias().addAll(Arrays.asList(escritorio, informatica));
 		mouse.getCategorias().add(informatica);
 
 		categoriaRepository.saveAll(Arrays.asList(informatica, escritorio));
