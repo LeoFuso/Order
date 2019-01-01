@@ -51,6 +51,11 @@ public class OrderApplication implements CommandLineRunner {
 
 		Categoria informatica = new Categoria(null, "Informática");
 		Categoria escritorio = new Categoria(null, "Escritório");
+		Categoria casaMesaBanho = new Categoria(null, "Casa, Mesa e Banho");
+		Categoria eletrodomesticos = new Categoria(null, "Eletrodomésticos");
+		Categoria jardinagem = new Categoria(null, "Jardinagem");
+		Categoria decoracao = new Categoria(null, "Decoração");
+		Categoria perfumaria = new Categoria(null, "Perfumaria");
 
 		Produto computador = new Produto(null, "Computador", 2000.0);
 		Produto impressora = new Produto(null, "Impressora", 800.0);
@@ -63,7 +68,11 @@ public class OrderApplication implements CommandLineRunner {
 		impressora.getCategorias().addAll(Arrays.asList(escritorio, informatica));
 		mouse.getCategorias().add(informatica);
 
-		categoriaRepository.saveAll(Arrays.asList(informatica, escritorio));
+		categoriaRepository.saveAll(Arrays.asList(
+				informatica, escritorio, casaMesaBanho, eletrodomesticos,
+				jardinagem, decoracao, perfumaria
+		));
+
 		produtoRepository.saveAll(Arrays.asList(computador, impressora, mouse));
 
 		Estado minasGerais = new Estado(null, "Minas Gerais");
