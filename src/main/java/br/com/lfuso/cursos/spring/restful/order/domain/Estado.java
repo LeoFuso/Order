@@ -21,6 +21,7 @@ public class Estado implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
 	private String nome;
 
 	@OneToMany(mappedBy = "estado")
@@ -36,11 +37,11 @@ public class Estado implements Serializable {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Estado estado = (Estado) o;
-		return Objects.equals(getId(), estado.getId());
+		return Objects.equals(getNome(), estado.getNome());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getId());
+		return Objects.hash(getNome());
 	}
 }

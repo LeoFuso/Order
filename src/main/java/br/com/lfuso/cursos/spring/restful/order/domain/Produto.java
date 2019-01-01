@@ -24,7 +24,9 @@ public class Produto implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
 	private String nome;
+
 	private double preco;
 
 	@JsonIgnore
@@ -54,14 +56,18 @@ public class Produto implements Serializable {
 
 	@Override
 	public boolean equals(Object o) {
+
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
+
 		Produto produto = (Produto) o;
-		return Objects.equals(getId(), produto.getId());
+		return Objects.equals(getNome(), produto.getNome());
+
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getId());
+		return Objects.hash(getNome());
 	}
+
 }

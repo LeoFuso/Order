@@ -20,6 +20,7 @@ public class Cidade implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
 	private String nome;
 
 	@JsonIgnore
@@ -38,11 +39,14 @@ public class Cidade implements Serializable {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Cidade cidade = (Cidade) o;
-		return Objects.equals(getId(), cidade.getId());
+
+		return Objects.equals(getNome(), cidade.getNome()) &&
+				Objects.equals(getEstado(), cidade.getEstado());
+
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getId());
+		return Objects.hash(getNome(), getEstado());
 	}
 }
