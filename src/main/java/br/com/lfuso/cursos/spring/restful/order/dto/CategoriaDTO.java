@@ -22,7 +22,8 @@ public class CategoriaDTO implements Serializable {
 	@Size(min = 5, max = 80, message = "Nome deve conter entre [ 5; 80] caracteres")
 	private String nome;
 
-	public static CategoriaDTO ofCategoria(Categoria categoria) {
+	public static CategoriaDTO of(Categoria categoria) {
 		return new CategoriaDTO(categoria.getId(), categoria.getNome());
 	}
+
 }

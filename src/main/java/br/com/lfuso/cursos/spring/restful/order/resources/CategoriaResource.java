@@ -26,7 +26,7 @@ public class CategoriaResource {
 
 		List<CategoriaDTO> categorias = categoriaService.findAll()
 				.stream()
-				.map(CategoriaDTO::ofCategoria)
+				.map(CategoriaDTO::of)
 				.collect(Collectors.toList());
 
 		return ResponseEntity.ok(categorias);
@@ -41,7 +41,7 @@ public class CategoriaResource {
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
 
 		Page<CategoriaDTO> categorias = categoriaService.findAll(page, itens, orderBy, direction)
-				.map(CategoriaDTO::ofCategoria);
+				.map(CategoriaDTO::of);
 
 		return ResponseEntity.ok(categorias);
 
@@ -73,6 +73,7 @@ public class CategoriaResource {
 	public ResponseEntity<Void> save(@PathVariable Integer id, @Valid @RequestBody CategoriaDTO categoriaDTO) {
 
 		Categoria categoria = categoriaService.fromDTO(categoriaDTO);
+		categoria.setId(id);
 		categoriaService.update(categoria);
 
 		return ResponseEntity.noContent().build();
